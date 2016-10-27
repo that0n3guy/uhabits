@@ -84,7 +84,7 @@ public class BaseScreen
         ColorDrawable drawable = new ColorDrawable(color);
         actionBar.setBackgroundDrawable(drawable);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if (SDK_INT >= LOLLIPOP)
         {
             int darkerColor = ColorUtils.mixColors(color, Color.BLACK, 0.75f);
             activity.getWindow().setStatusBarColor(darkerColor);
@@ -94,8 +94,8 @@ public class BaseScreen
             View view = activity.findViewById(R.id.toolbarShadow);
             if (view != null) view.setVisibility(View.GONE);
 
-//            view = activity.findViewById(R.id.headerShadow);
-//            if (view != null) view.setVisibility(View.GONE);
+            view = activity.findViewById(R.id.headerShadow);
+            if (view != null) view.setVisibility(View.GONE);
         }
     }
 
@@ -138,7 +138,6 @@ public class BaseScreen
             int color = rootView.getToolbarColor();
             setActionBarColor(actionBar, color);
             setStatusBarColor(color);
-            setupToolbarElevation(toolbar);
         });
     }
 
@@ -258,23 +257,10 @@ public class BaseScreen
 
     private void setStatusBarColor(int baseColor)
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
+        if (SDK_INT < LOLLIPOP) return;
 
         int darkerColor = ColorUtils.mixColors(baseColor, Color.BLACK, 0.75f);
         activity.getWindow().setStatusBarColor(darkerColor);
-    }
-
-    private void setupToolbarElevation(Toolbar toolbar)
-    {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
-
-        toolbar.setElevation(InterfaceUtils.dpToPixels(activity, 2));
-
-        View view = activity.findViewById(R.id.toolbarShadow);
-        if (view != null) view.setVisibility(View.GONE);
-
-//        view = activity.findViewById(R.id.headerShadow);
-//        if (view != null) view.setVisibility(View.GONE);
     }
 
     private class ActionModeWrapper implements ActionMode.Callback
